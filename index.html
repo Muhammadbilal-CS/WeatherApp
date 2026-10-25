@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="default">
+  <main class="weather-app">
+    <h1>Weather App <span>🌤️</span></h1>
+    <p class="subtitle">Discover the weather anywhere in the world</p>
+
+    <form id="weatherForm">
+      <input
+        type="text"
+        id="cityInput"
+        placeholder="Enter city name..."
+        aria-label="City name"
+        required
+      >
+      <button type="submit">Search</button>
+    </form>
+
+    <button id="locationBtn" class="location-btn" type="button">
+      📍 Use My Current Location
+    </button>
+
+    <p id="message" role="status">Search for a city to see its weather.</p>
+
+    <section id="weatherCard" class="weather-card" hidden>
+      <h2 id="cityName">City</h2>
+      <div id="weatherIcon" class="weather-icon">🌤️</div>
+      <h3 id="temperature">--°C</h3>
+      <p id="description">Weather condition</p>
+
+      <div class="details">
+        <div class="detail">
+          <span>💧</span>
+          <p>Humidity</p>
+          <strong id="humidity">--%</strong>
+        </div>
+        <div class="detail">
+          <span>🌬️</span>
+          <p>Wind Speed</p>
+          <strong id="wind">-- m/s</strong>
+        </div>
+      </div>
+    </section>
+
+    <footer>Weather information powered by OpenWeather</footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

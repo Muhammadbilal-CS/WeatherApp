@@ -1,0 +1,532 @@
+
+/* ========================================
+   WEATHER APP — PREMIUM UI DESIGN
+   Author: Muhammad Bilal
+======================================== */
+
+/* 1. Global Reset */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --white: #ffffff;
+  --glass: rgba(255, 255, 255, 0.13);
+  --glass-border: rgba(255, 255, 255, 0.25);
+  --text-muted: rgba(255, 255, 255, 0.76);
+  --accent: #ffd166;
+  --dark: #132238;
+  --shadow: 0 25px 70px rgba(0, 0, 0, 0.25);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 35px 18px;
+  overflow-x: hidden;
+
+  font-family: 'Inter', Arial, sans-serif;
+  color: var(--white);
+
+  background:
+    radial-gradient(ellipse at 15% 15%, #5288c5 0%, transparent 45%),
+    linear-gradient(135deg, #10223f, #244e76 55%, #192c4a);
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+
+  transition: background 0.6s ease;
+  position: relative;
+  isolation: isolate;
+}
+
+/* 2. Soft Ambient Background Lights */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.35;
+  pointer-events: none;
+  animation: floatGlow 9s ease-in-out infinite alternate;
+}
+
+body::before {
+  top: -90px;
+  left: -70px;
+  background: #64c8ff;
+}
+
+body::after {
+  right: -80px;
+  bottom: -100px;
+  background: #a58bff;
+  animation-delay: -4s;
+}
+
+@keyframes floatGlow {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(35px, 25px) scale(1.2);
+  }
+}
+
+/* 3. Weather Backgrounds */
+body.default {
+  background:
+    radial-gradient(ellipse at 20% 10%, #477eb7, transparent 45%),
+    linear-gradient(135deg, #10223f, #244e76 55%, #192c4a);
+}
+
+body.sunny {
+  background-image:
+    linear-gradient(135deg, rgba(85, 54, 16, 0.35), rgba(12, 36, 68, 0.65)),
+    url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1920&q=85");
+}
+
+body.cloudy {
+  background-image:
+    linear-gradient(135deg, rgba(24, 42, 67, 0.50), rgba(20, 36, 57, 0.75)),
+    url("https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=1920&q=85");
+}
+
+body.rainy {
+  background-image:
+    linear-gradient(135deg, rgba(10, 22, 43, 0.60), rgba(17, 35, 59, 0.80)),
+    url("https://images.unsplash.com/photo-1519692933481-e162a57d6721?auto=format&fit=crop&w=1920&q=85");
+}
+
+body.snowy {
+  background:
+    radial-gradient(ellipse at top, #c7e5f6, transparent 65%),
+    linear-gradient(135deg, #526f92, #829eb7);
+}
+
+body.night {
+  background:
+    radial-gradient(ellipse at 80% 10%, #384e83, transparent 45%),
+    linear-gradient(135deg, #080d20, #171d42 60%, #303d65);
+}
+
+/* 4. Main Weather Container */
+.weather-app {
+  width: 100%;
+  max-width: 490px;
+  padding: 38px 32px;
+
+  text-align: center;
+  position: relative;
+
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.19),
+    rgba(255, 255, 255, 0.07)
+  );
+
+  border: 1px solid var(--glass-border);
+  border-radius: 30px;
+
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+
+  box-shadow:
+    var(--shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+
+  animation: cardAppear 0.8s ease both;
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 5. Heading */
+h1 {
+  font-size: clamp(27px, 5vw, 35px);
+  font-weight: 800;
+  letter-spacing: -1.2px;
+  margin-bottom: 12px;
+  text-shadow: 0 3px 20px rgba(0, 0, 0, 0.15);
+}
+
+h1 span {
+  display: inline-block;
+  animation: sunFloat 3s ease-in-out infinite;
+}
+
+@keyframes sunFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0);
+  }
+  50% {
+    transform: translateY(-5px) rotate(8deg);
+  }
+}
+
+.subtitle {
+  max-width: 330px;
+  margin: 0 auto 27px;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* 6. Search Form */
+form {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  padding: 6px;
+
+  background: rgba(9, 22, 42, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 16px;
+
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+form:focus-within {
+  border-color: rgba(255, 209, 102, 0.85);
+  box-shadow: 0 0 0 4px rgba(255, 209, 102, 0.10);
+}
+
+input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  padding: 13px 12px;
+
+  color: var(--white);
+  background: transparent;
+
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+input:focus-visible {
+  outline: none;
+}
+
+/* 7. Buttons */
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  padding: 13px 18px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+form button {
+  flex-shrink: 0;
+  color: #26334b;
+  background: linear-gradient(135deg, #ffe29a, #ffc857);
+  box-shadow: 0 5px 18px rgba(255, 200, 87, 0.18);
+}
+
+form button:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #ffedbd, #ffd166);
+  box-shadow: 0 8px 22px rgba(255, 200, 87, 0.28);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+button:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 3px;
+}
+
+/* 8. Current Location Button */
+.location-btn {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 13px;
+
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 13px;
+}
+
+.location-btn:hover {
+  background: rgba(255, 255, 255, 0.17);
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: translateY(-2px);
+}
+
+/* 9. Messages and Errors */
+#message {
+  min-height: 24px;
+  margin: 20px 0 12px;
+
+  color: #fff0c1;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+/* 10. Weather Information Card */
+.weather-card {
+  padding-top: 14px;
+  animation: weatherAppear 0.55s ease both;
+}
+
+.weather-card[hidden] {
+  display: none;
+}
+
+@keyframes weatherAppear {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.weather-card h2 {
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  overflow-wrap: anywhere;
+}
+
+/* 11. Weather Icon */
+.weather-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 120px;
+  height: 120px;
+  margin: 12px auto 4px;
+
+  font-size: 76px;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.17),
+    rgba(255, 255, 255, 0.015) 70%
+  );
+
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.15));
+  animation: iconFloat 3.5s ease-in-out infinite;
+}
+
+@keyframes iconFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+/* 12. Temperature */
+#temperature {
+  margin: 4px 0 10px;
+
+  font-size: clamp(48px, 10vw, 64px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -3px;
+
+  background: linear-gradient(180deg, #ffffff 30%, #dbeafe);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  filter: drop-shadow(0 5px 14px rgba(0, 0, 0, 0.13));
+}
+
+#description {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.91);
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+/* 13. Humidity and Wind Details */
+.details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+  margin-top: 28px;
+}
+
+.detail {
+  min-width: 0;
+  padding: 19px 10px;
+
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 18px;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.detail:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.32);
+}
+
+.detail span {
+  display: inline-block;
+  font-size: 28px;
+  margin-bottom: 7px;
+}
+
+.detail p {
+  margin: 5px 0 9px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.detail strong {
+  display: block;
+  font-size: 19px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+/* 14. Footer */
+footer {
+  margin-top: 28px;
+  padding-top: 17px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 11px;
+  line-height: 1.7;
+  letter-spacing: 0.2px;
+}
+
+/* 15. Tablet and Mobile */
+@media (max-width: 520px) {
+  body {
+    padding: 22px 13px;
+    background-attachment: scroll;
+  }
+
+  .weather-app {
+    max-width: 430px;
+    padding: 30px 20px;
+    border-radius: 25px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    margin-bottom: 22px;
+  }
+
+  .weather-icon {
+    width: 105px;
+    height: 105px;
+    font-size: 67px;
+  }
+
+  .details {
+    gap: 10px;
+  }
+
+  .detail {
+    padding: 17px 8px;
+  }
+}
+
+@media (max-width: 370px) {
+  .weather-app {
+    padding: 25px 15px;
+  }
+
+  form {
+    flex-direction: column;
+    padding: 8px;
+  }
+
+  form button {
+    width: 100%;
+  }
+
+  input {
+    min-height: 44px;
+  }
+
+  h1 {
+    font-size: 25px;
+  }
+
+  .detail strong {
+    font-size: 17px;
+  }
+}
+
+/* 16. Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
